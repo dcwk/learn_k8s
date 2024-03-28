@@ -16,7 +16,7 @@ spec:
         app: frontend
     spec:
       containers:
-        - image: my-repo/journal-server:v1-abcde
+        - image: brendanburns/journal-server:latest
           imagePullPolicy: IfNotPresent
           name: frontend
           volumeMounts:
