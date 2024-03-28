@@ -19,6 +19,16 @@ spec:
         - image: my-repo/journal-server:v1-abcde
           imagePullPolicy: IfNotPresent
           name: frontend
+          volumeMounts:
+            - mountPath: "/etc/redis-passwd"
+              name: passwd-volume
+              readOnly: true
+          env:
+            - name: JOURNAL_ENTRIES
+              valueFrom:
+                configMapKeyRef:
+                  name: frontend-config
+                  key: journalEntries
           resources:
             requests:
               cpu: "1.0"
@@ -26,3 +36,7 @@ spec:
             limits:
               cpu: "1.0"
               memory: "1G"
+      volumes:
+        - name: passwd-volume
+          secret:
+            secretName: redis-passwd
